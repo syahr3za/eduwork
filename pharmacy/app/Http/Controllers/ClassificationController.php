@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Classification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ClassificationController extends Controller
 {
@@ -18,7 +19,7 @@ class ClassificationController extends Controller
      */
     public function index()
     {
-        return view('admin.classification');
+        return view('admin.classification.index');
     }
     public function api()
     {

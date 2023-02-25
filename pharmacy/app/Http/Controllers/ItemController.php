@@ -25,19 +25,24 @@ class ItemController extends Controller
         $classifications = Classification::all();
         //$items = Item::with('form','classification')->get();
         //return $items;
-        return view('admin.item', compact('forms','classifications'));
+        return view('admin.item.index', compact('forms','classifications'));
     }
     public function api()
     {
         $items = Item::with('form','classification');
 
-        $datatables = datatables()->of($items)
+        return datatables()->of($items)
+                        ->addIndexColumn()
                         ->addColumn('date', function($item){
                             return convert_date($item->created_at);
                         })
-                        ->addIndexColumn();
-
-        return $datatables->make(true);
+                        ->addColumn('select_all', function($item){
+                            return '
+                                <input type="checkbox" name="id[]" value="'. $item->id .'">
+                            ';
+                        })                   
+                        ->rawColumns(['select_all'])
+                        ->make(true);
     }
 
     /**
@@ -62,11 +67,22 @@ class ItemController extends Controller
             'name'=>'required',
             'form_id'=>'required',
             'classification_id'=>'required',
-            'price'=>'required',
+            'sell_price'=>'required',
+            'buy_price'=>'required',
+            'diskon'=>'required',
             'qty'=>'required',
         ]);
+        $items = new Item();
+        $items->diskon = $request->diskon;
+        $items->name = $request->name;
+        $items->form_id = $request->form_id;
+        $items->classification_id = $request->classification_id;
+        $items->sell_price = $request->sell_price;
+        $items->buy_price = $request->buy_price;
+        $items->qty = $request->qty;
+        $items->save();
 
-        Item::create($request->all());
+        // Item::create($request->all());
 
         return redirect('items');
     }
@@ -106,7 +122,9 @@ class ItemController extends Controller
             'name'=>'required',
             'form_id'=>'required',
             'classification_id'=>'required',
-            'price'=>'required',
+            'sell_price'=>'required',
+            'buy_price'=>'required',
+            'diskon'=>'required',
             'qty'=>'required',
         ]);
 
@@ -125,5 +143,16 @@ class ItemController extends Controller
     {
         $item->delete();
         
+        return redirect('items');
+    }
+
+    public function deleteSelected(Request $request)
+    {
+        foreach ($request->id as $id) {
+            $items = Item::find($id);
+            $items->delete();
+        }
+
+        return response(null, 204);
     }
 }

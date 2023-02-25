@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Supplier;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class SupplierController extends Controller
@@ -18,7 +19,7 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        return view('admin.supplier');
+        return view('admin.supplier.index');
     }
     public function api()
     {

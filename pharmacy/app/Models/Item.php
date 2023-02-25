@@ -9,7 +9,7 @@ class Item extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','form_id','classification_id','price','qty'];
+    protected $fillable = ['name','form_id','classification_id','sell_price', 'qty', 'buy_price'];
 
     public function Classification()
     {
@@ -21,7 +21,7 @@ class Item extends Model
         return $this->belongsTo('App\Models\Form', 'form_id');
     }
 
-    public function Sale()
+    /*public function Sale()
     {
         return $this->belongsToMany('App\Models\Sale', 'sale_details');
     }
@@ -34,5 +34,5 @@ class Item extends Model
     public function Purchase()
     {
         return $this->belongsTo('App\Models\Purchase', 'item_id');
-    }
+    }*/
 }

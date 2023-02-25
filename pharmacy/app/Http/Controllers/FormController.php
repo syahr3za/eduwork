@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Form;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FormController extends Controller
 {
@@ -18,7 +19,7 @@ class FormController extends Controller
      */
     public function index()
     {
-        return view('admin.form');
+        return view('admin.form.index');
     }
     public function api()
     {

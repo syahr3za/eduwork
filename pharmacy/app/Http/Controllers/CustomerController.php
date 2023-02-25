@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
@@ -18,7 +19,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return view('admin.customer');
+        return view('admin.customer.index');
     }
     public function api()
     {
@@ -53,14 +54,16 @@ class CustomerController extends Controller
     {
         $request->validate([
             'name'=>'required',
-            'email'=>'required',
-            'phone_number'=>'required',
-            'address'=>'required',
         ]);
 
-        Customer::create($request->all());
+        $customer = new Customer();
+        $customer->name = $request->name;
+        $customer->email = $request->email;
+        $customer->phone_number = $request->phone_number;
+        $customer->address = $request->address;
+        $customer->save();
 
-        return redirect('customers');
+        return response()->json('Data has been save', 200);
     }
 
     /**

@@ -9,8 +9,12 @@ class StockOut extends Model
 {
     use HasFactory;
 
-    public function Item()
+    protected $table = 'stock_outs';
+    protected $primaryKey = 'id';
+    protected $guarded = [];
+
+    public function items()
     {
-        return $this->belongsTo('App\Models\Item', 'item_id');
+        return $this->hasOne(Item::class, 'id', 'item_id');
     }
 }
