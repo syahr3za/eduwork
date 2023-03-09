@@ -223,13 +223,43 @@
                 </a>
               </li>
             </ul>
+          </li>
           <li class="nav-item">
             <a href="{{ route('report.index') }}" class="nav-link {{ request()->is('report') ? 'active' : '' }}">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Report
+                Reports
               </p>
             </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link {{ request()->is('roles', 'permissions', 'users') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-pills"></i>
+              <p>
+                Users
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('roles') }}" class="nav-link {{ request()->is('roles') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Roles</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('permissions')}}" class="nav-link {{ request()->is('permissions') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Permissions</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin.users.index')}}" class="nav-link {{ request()->is('users') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Users list</p>
+                </a>
+              </li>
+            </ul>
           </li>
       </nav>
       <!-- /.sidebar-menu -->

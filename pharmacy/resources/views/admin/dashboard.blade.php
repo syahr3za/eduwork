@@ -13,7 +13,7 @@
                 <p>Customers</p>
               </div>
               <div class="icon">
-                <i class="ion ion-bag"></i>
+                <i class="ion ion-ios-people"></i>
               </div>
               <a href="{{ url('customers') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -28,7 +28,7 @@
                 <p>Suppliers</p>
               </div>
               <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+                <i class="ion ion-archive"></i>
               </div>
               <a href="{{ url('suppliers') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -43,7 +43,7 @@
                 <p>Items</p>
               </div>
               <div class="icon">
-                <i class="ion ion-person-add"></i>
+                <i class="ion ion-filing"></i>
               </div>
               <a href="{{ url('items') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -58,7 +58,7 @@
                 <p>Sales</p>
               </div>
               <div class="icon">
-                <i class="ion ion-pie-graph"></i>
+                <i class="ion ion-bag"></i>
               </div>
               <a href="{{ url('sales') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>

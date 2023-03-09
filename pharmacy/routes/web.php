@@ -45,7 +45,7 @@ Route::group(['middleware' => ['role:admin|cashier']], function () {
     Route::get('/home/spatie', [App\Http\Controllers\HomeController::class, 'spatie']);
 });
 
-Route::group(['middleware' => ['role_or_permission:admin|all access']], function () {
+Route::group(['middleware' => ['role_or_permission:admin|all']], function () {
     //supplier
     Route::resource('/suppliers',App\Http\Controllers\SupplierController::class);
     Route::get('/api/suppliers', [App\Http\Controllers\SupplierController::class, 'api']);    
@@ -84,6 +84,27 @@ Route::group(['middleware' => ['role_or_permission:admin|all access']], function
     Route::resource('/stock_outs',App\Http\Controllers\StockOutController::class)->except('destroy');
     Route::get('/api/stock_outs', [App\Http\Controllers\StockOutController::class, 'api']);
     Route::delete('/stock_outs/{id}', [App\Http\Controllers\StockOutController::class, 'destroy'])->name('stock_outs.destroy');
+
+    //role
+    Route::resource('/roles', App\Http\Controllers\RoleController::class);
+    Route::get('/api/roles', [App\Http\Controllers\RoleController::class, 'api']);
+    Route::post('/roles/{role}/permissions', [App\Http\Controllers\RoleController::class, 'givePermission'])->name('roles.permissions');
+    Route::delete('/roles/{role}/permissions/{permission}', [App\Http\Controllers\RoleController::class, 'revokePermission'])->name('roles.permissions.revoke');
+
+    //permission
+    Route::resource('/permissions', App\Http\Controllers\PermissionController::class);
+    Route::get('/api/permissions', [App\Http\Controllers\PermissionController::class, 'api']);
+    Route::post('/permissions/{permission}/roles', [App\Http\Controllers\PermissionController::class, 'assignRole'])->name('permissions.roles');
+    Route::delete('/permissions/{permission}/roles/{role}', [App\Http\Controllers\PermissionController::class, 'removeRole'])->name('permissions.roles.remove');
+
+    //user
+    Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('admin.users.index');
+    Route::get('/users/{user}', [App\Http\Controllers\UserController::class, 'show'])->name('admin.users.show');
+    Route::delete('/users/{user}', [App\Http\Controllers\UserController::class, 'destroy'])->name('admin.users.destroy');
+    Route::post('/users/{user}/roles', [App\Http\Controllers\UserController::class, 'assignRole'])->name('admin.users.roles');
+    Route::delete('/users/{user}/roles/{role}', [App\Http\Controllers\UserController::class, 'removeRole'])->name('admin.users.roles.remove');
+    Route::post('/users/{user}/permissions', [App\Http\Controllers\UserController::class, 'givePermission'])->name('admin.users.permissions');
+    Route::delete('/users/{user}/permissions/{permission}', [App\Http\Controllers\UserController::class, 'revokePermission'])->name('admin.users.permissions.revoke');
 });
 
     
